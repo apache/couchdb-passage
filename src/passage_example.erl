@@ -3,7 +3,7 @@
 %% @private
 -module(passage_example).
 
--compile({parse_transform, passage_transform}).
+%% -compile({parse_transform, passage_transform}).
 
 %%------------------------------------------------------------------------------
 %% Exported API
@@ -13,7 +13,7 @@
 %%------------------------------------------------------------------------------
 %% Exported Functions
 %%------------------------------------------------------------------------------
--passage_trace([{tags, #{kind => "greeting", name => "Name"}}]).
+%%-passage_trace([{tags, #{kind => "greeting", name => "Name"}}]).
 -spec hello(atom()) -> ok.
 hello(Name) ->
     io:format("Hello ~s\n", [Name]),
@@ -24,7 +24,7 @@ hello(Name) ->
 %%------------------------------------------------------------------------------
 %% Internal Functions
 %%------------------------------------------------------------------------------
--passage_trace([{error_if, "{error, _}"}, error_if_exception]).
+%%-passage_trace([{error_if, "{error, _}"}, error_if_exception]).
 -spec hello_child(atom()) -> {ok, passage:maybe_span()} | {error, term()}.
 hello_child(Name) ->
     case Name of
@@ -35,8 +35,8 @@ hello_child(Name) ->
             {ok, passage_pd:current_span()}
     end.
 
--passage_trace([{follows_from, "Span"}]).
+%%-passage_trace([{follows_from, "Span"}]).
 -spec hello_sibling(passage:maybe_span(), atom()) -> ok.
-hello_sibling(Span, Name) ->
+hello_sibling(_Span, Name) ->
     io:format("[sibling] Hello ~s\n", [Name]),
     ok.
